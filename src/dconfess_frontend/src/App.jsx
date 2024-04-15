@@ -18,19 +18,20 @@ function App() {
 
   function addNote(newNote) {
     setNotes(prevNotes => {
-      dconfess_backend.createNote(newNote.title, newNote.content);
+      dconfess_backend.createNote(newNote.title, newNote.content,newNote.date);
       return [...prevNotes, newNote];
     });
   };
 
-  function deleteNote(id) {
-    dconfess_backend.deleteNote(id);
-    setNotes(prevNotes => {
-      return prevNotes.filter((noteItem, index) => {
-        return index !== id;
-      });
-    });
-  };
+  // === DELETE FUNCTION ===
+  // function deleteNote(id) {
+  //   dconfess_backend.deleteNote(id);
+  //   setNotes(prevNotes => {
+  //     return prevNotes.filter((noteItem, index) => {
+  //       return index !== id;
+  //     });
+  //   });
+  // };
 
   return (
     <>
@@ -45,9 +46,10 @@ function App() {
           <Note
             key={index}
             id={index}
+            date={noteItem.date}
             title={noteItem.title}
             content={noteItem.content}
-            onDelete={deleteNote}
+            // onDelete={deleteNote}
           />
         );
       })}

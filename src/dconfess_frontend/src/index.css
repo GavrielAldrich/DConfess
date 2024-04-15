@@ -77,6 +77,11 @@ footer p {
   word-wrap: break-word;
 }
 
+.note .note-date{
+  color: #808080;
+  font-size: small;
+}
+
 .note button {
   position: relative;
   float: right;

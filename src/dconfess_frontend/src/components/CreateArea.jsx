@@ -4,11 +4,21 @@ import Fab from "@material-ui/core/Fab";
 import Zoom from "@material-ui/core/Zoom";
 
 function CreateArea(props) {
+  // Get the current date
+  var currentDate = new Date()
+  // Extract year, month, and day
+  var year = currentDate.getFullYear();
+  var month = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Adding 1 because January is 0
+  var day = ('0' + currentDate.getDate()).slice(-2);
+    
+  // Format the date as yyyy-mm-dd
+  var formattedDate = year + '-' + month + '-' + day;
   const [isExpanded, setExpanded] = useState(false);
 
   const [note, setNote] = useState({
     title: "",
-    content: ""
+    content: "",
+    date: ""
   });
 
   function handleChange(event) {
@@ -16,7 +26,8 @@ function CreateArea(props) {
     setNote(prevNote => {
       return {
         ...prevNote,
-        [name]: value
+        [name]: value,
+        date: formattedDate
       };
     });
   }
@@ -25,7 +36,7 @@ function CreateArea(props) {
     props.onAdd(note)
     setNote({
       title: "",
-      content: ""
+      content: "",
     });
     event.preventDefault();
   }

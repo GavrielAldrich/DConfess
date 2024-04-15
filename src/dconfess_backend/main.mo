@@ -6,14 +6,16 @@ actor DConfess {
   public type Note = {
     title: Text;
     content: Text;
+    date: Text;
   };
 
   var notes = Buffer.Buffer<Note>(0);
 
-  public func createNote(titleText: Text, contentText: Text){
+  public func createNote(titleText: Text, contentText: Text, contentDate: Text){
     let newNote: Note = {
       title = titleText;
       content = contentText;
+      date = contentDate;
     };
     notes.add(newNote);
   };

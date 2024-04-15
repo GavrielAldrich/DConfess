@@ -1,6 +1,8 @@
 import React from "react";
 
 function Note(props) {
+
+  // == DELETE HANDLE ==
   // function handleClick() {
   //   props.onDelete(props.id);
   // }
@@ -9,7 +11,7 @@ function Note(props) {
     <div className="note">
       <h1>{props.title}</h1>
       <p>{props.content}</p>
-      {/* <p className="date"></p> */}
+      <p className="note-date" align="right">{props.date}</p>
     </div>
   );
 }
