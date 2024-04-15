@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "dconfess_backend": {
+      "main": "src/dconfess_backend/main.mo",
+      "type": "motoko"
+    },
+    "dconfess_frontend": {
+      "dependencies": [
+        "dconfess_backend"
+      ],
+      "source": [
+        "src/dconfess_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "dconfess_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
