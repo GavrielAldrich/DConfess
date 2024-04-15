@@ -1,30 +1,56 @@
-import { useState } from 'react';
-import { dconfess_backend } from 'declarations/dconfess_backend';
+import React, { useEffect, useState } from "react";
+import { dconfess_backend } from "declarations/dconfess_backend";
+import Header from "./components/Header";
+import Note from "./components/Note";
+import CreateArea from "./components/CreateArea";
+import Footer from "./components/Footer";
 
 function App() {
-  const [greeting, setGreeting] = useState('');
+  const [notes, setNotes] = useState([]);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    dconfess_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
+  useEffect(()=>{
+    async function fetchInitialNotes(){
+      const initialNotes = await dconfess_backend.readNotes();
+      setNotes(initialNotes);
+    }
+    fetchInitialNotes();
+  }, []);
+
+  function addNote(newNote) {
+    setNotes(prevNotes => {
+      dconfess_backend.createNote(newNote.title, newNote.content);
+      return [...prevNotes, newNote];
     });
-    return false;
-  }
+  };
+
+  function deleteNote(id) {
+    dconfess_backend.deleteNote(id);
+    setNotes(prevNotes => {
+      return prevNotes.filter((noteItem, index) => {
+        return index !== id;
+      });
+    });
+  };
 
   return (
-    <main>
-      <img src="/logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting">{greeting}</section>
-    </main>
+    <div>
+      <Header />
+      <CreateArea onAdd={
+        addNote
+        } />
+      {notes.map((noteItem, index) => {
+        return (
+          <Note
+            key={index}
+            id={index}
+            title={noteItem.title}
+            content={noteItem.content}
+            onDelete={deleteNote}
+          />
+        );
+      })}
+      <Footer />
+    </div>
   );
 }
 
