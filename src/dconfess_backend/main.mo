@@ -28,5 +28,9 @@ actor DConfess {
       let removedData = notes.remove(noteId);
       Debug.print(debug_show("Removed items:",removedData));
     };
+
+    public func resetAllNote(){
+      notes.clear();
+    }
 };
 
